@@ -20,7 +20,7 @@ export class UserService {
   async store(data: CreateUserDTO) {    
   
     // Verificando se existe esse email cadastrado
-    if(await this.userRepository.exists({ where: { email: data.email } })) {
+    if(await this.userRepository.exist({ where: { email: data.email } })) {
       throw new BadRequestException('Esse email já está sendo usado.');
     }
 
@@ -47,10 +47,8 @@ export class UserService {
     this.exists(id);
 
     // O findOneBy() funcionaria também. Então não precisaríamos do where
-    return await this.userRepository.findOne({
-      where: {
-        id: id
-      }
+    return await this.userRepository.findOneBy({
+      id,
     });
   }
 
@@ -120,13 +118,15 @@ export class UserService {
     // Verificando se o usuário existe
     this.exists(id);
 
-    return await this.userRepository.delete(id);
+    await this.userRepository.delete(id);
+
+    return true
   }
 
   async exists(id: number) {   
 
     // Verifica se o usuário existe. Se não, chamará uma exception
-    if(! (await this.userRepository.exists({ where: { id } }))) {
+    if(! (await this.userRepository.exist({ where: { id } }))) {
       throw new NotFoundException(`O usuário ${id} não existe.`);
     }   
   }

@@ -29,6 +29,9 @@ Este projeto tem como objetivo aprofundar o conhecimento em **NestJS**. Desenvol
   - Uso de **Migrations** para gerenciamento das tabelas do banco de dados.
   - Uso do banco de dados **PostgreSQL**.
 
+- **Testes**
+  - Testes com Jest.
+
 ## Tecnologias
 
 - **NestJS**
@@ -81,6 +84,14 @@ $ npm run migrate:up
 
 # revert migration
 $ npm run migrate:down
+```
+
+## Run tests
+
+```bash
+# user test
+$ npm test -t src/user/user.service.spec.ts
+$ npm run test:watch -t src/user/user.service.spec.ts
 ```
 
 ## Stay in touch
