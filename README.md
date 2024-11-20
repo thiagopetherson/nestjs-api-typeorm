@@ -92,6 +92,10 @@ $ npm run migrate:down
 # user test
 $ npm test -t src/user/user.service.spec.ts
 $ npm run test:watch -t src/user/user.service.spec.ts
+
+# auth test
+$ npm test -t src/auth/auth.service.spec.ts
+$ npm run test:watch -t src/auth/auth.service.spec.ts
 ```
 
 ## Stay in touch
