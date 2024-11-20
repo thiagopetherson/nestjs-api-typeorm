@@ -1,5 +1,5 @@
 import { IsDateString, IsEmail, IsEnum, IsOptional, IsString, IsStrongPassword } from "class-validator"; // Importando as validações do class-validator
-import { Role } from "src/enums/role.enums";
+import { Role } from "../../enums/role.enums";
 
 export class CreateUserDTO {
 
@@ -26,5 +26,5 @@ export class CreateUserDTO {
   // Dizemos que esse campo é opcional e que deve receber um parâmetro enum
   @IsOptional()
   @IsEnum(Role) // Espera um parâmetro enum
-  role: number;
+  role?: number; // a ? significa que o campo é opcional
 }

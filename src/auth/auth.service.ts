@@ -1,10 +1,10 @@
 import { BadRequestException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { JwtService } from "@nestjs/jwt";
 import { AuthRegisterDTO } from "./DTO/auth-register.dto";
-import { UserService } from "src/user/user.service";
+import { UserService } from "../user/user.service";
 import * as bcrypt from 'bcrypt'; // importamos a biblioteca assim pq ela não foi escrita em JS
 import { MailerService } from "@nestjs-modules/mailer";
-import { UserEntity } from "src/user/entity/user.entity";
+import { UserEntity } from "../user/entity/user.entity";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 
@@ -67,20 +67,18 @@ export class AuthService {
   // Método para fazer login
   async login (email: string, password: string) {       
     // Verificando se usuário existe
-    const user = await this.userRepository.findOne({
-      where: {
-        email
-      }
+    const user = await this.userRepository.findOneBy({      
+      email      
     });   
       
     if (!user) {
-      throw new UnauthorizedException('Email e/ou senha incorretos 1.')
+      throw new UnauthorizedException('Email e/ou senha incorretos.')
     }
    
 
     // Comparando e verificando se o hash é válido para o password (ou seja se password é válido para user.password)
     if(!(await bcrypt.compare(password, user.password))) { // O segundo parâmetro (do compare) é qual informação está encryptada
-      throw new UnauthorizedException('Email e/ou senha incorretos 2.')
+      throw new UnauthorizedException('Email e/ou senha incorretos.')
     }
     
     // Loga o usuário
@@ -109,15 +107,15 @@ export class AuthService {
 
     await this.mailer.sendMail({
       subject: 'Recuperação de Senha',
-      to: 'joao@hcode.com',
+      to: 'thipetherson@gmail.com',
       template: 'forget',
       context: { // Variáveis para passar para o template
         name: user.name,
-        token
+        token,
       }
     });
 
-    return true;
+    return { success: true };
   }
 
   // Método para reset password
@@ -152,6 +150,10 @@ export class AuthService {
 
   // Método para registrar
   async register (data: AuthRegisterDTO) {
+
+    // Se o usuário passar o role, vamos tirar (excluir)
+    delete data.role;
+
     const user = await this.userService.store(data);
 
     // Já loga o usuário

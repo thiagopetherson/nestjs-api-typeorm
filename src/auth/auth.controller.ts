@@ -1,15 +1,16 @@
-import { BadRequestException, Body, Controller, FileTypeValidator, Headers, MaxFileSizeValidator, ParseFilePipe, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors } from "@nestjs/common";
+import { BadRequestException, Body, Controller, FileTypeValidator, Headers, 
+  MaxFileSizeValidator, ParseFilePipe, Post, UploadedFile, UploadedFiles, UseGuards, UseInterceptors, Req } from "@nestjs/common";
 import { AuthLoginDTO } from "./DTO/auth-login.dto";
 import { AuthRegisterDTO } from "./DTO/auth-register.dto";
-import { AuthForgetDTO } from "./DTO/auth-forget-dto";
+import { AuthForgetDTO } from "./DTO/auth-forget.dto";
 import { AuthResetDTO } from "./DTO/auth-reset.dto";
 import { AuthService } from "./auth.service";
-import { AuthGuard } from "src/guards/auth.guard";
-import { User } from "src/decorators/user.decorator";
+import { AuthGuard } from "../guards/auth.guard";
+import { User } from "../decorators/user.decorator";
 import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
 import { join } from 'path' // Isso é do Node Também
-import { UserService } from "src/user/user.service";
-import { FileService } from "src/file/file.service";
+import { UserService } from "../user/user.service";
+import { FileService } from "../file/file.service";
 
 @Controller('auth') // As url da nossa rota de autenticação estará dentro desse path ('auth')
 export class AuthController {
@@ -38,8 +39,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard) // Chamando e Usando o guard que criamos
   @Post('me')
-  async me(@User() user) {
-    return { user };
+  async me(@User() user, @Req() { tokenPayload }) {
+    return { user, tokenPayload };
   }
 
   // Usando o decorator @UseInterceptors, e o FileInterceptor do Express
