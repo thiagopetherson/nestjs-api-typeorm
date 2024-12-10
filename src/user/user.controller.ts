@@ -3,12 +3,12 @@ import { CreateUserDTO } from './DTO/create-user.dto'
 import { UpdatePutUserDTO } from './DTO/update-put-user.dto'
 import { UpdatePatchUserDTO } from './DTO/update-patch-user.dto'
 import { UserService } from './user.service'
-import { LogInterceptor } from 'src/inteceptors/log.interceptor'
-import { ParamId } from 'src/decorators/param-id.decorator'
-import { Roles } from 'src/decorators/roles.decorator'
-import { Role } from 'src/enums/role.enums'
-import { RoleGuard } from 'src/guards/role.guard'
-import { AuthGuard } from 'src/guards/auth.guard'
+import { LogInterceptor } from '../interceptors/log.interceptor'
+import { ParamId } from '../decorators/param-id.decorator'
+import { Roles } from '../decorators/roles.decorator'
+import { Role } from '../enums/role.enums'
+import { RoleGuard } from '../guards/role.guard'
+import { AuthGuard } from '../guards/auth.guard'
 import { SkipThrottle, Throttle } from '@nestjs/throttler'
 
 @Roles(Role.Admin) // Nesse decorator estamos dizendo que somente o Role.Admin tem acesso nas rotas desse controller
@@ -53,7 +53,9 @@ export class UserController {
   // Método delete. Seria pra deletar um dado. Usamos @Delete. Decorator @Param. Usamos também p Pipe ParseIntPipe para converter
   @Delete(':id')
   async delete(@ParamId() id: number) {
-    return this.userService.delete(id);
+    return {
+      success: await this.userService.delete(id)
+    };
   }
 
 }

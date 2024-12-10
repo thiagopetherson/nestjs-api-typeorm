@@ -6,7 +6,7 @@ export const userServiceMock = {
   useValue: {
     show: jest.fn().mockResolvedValue(userEntityList[0]), // Método do service
     store: jest.fn().mockResolvedValue(userEntityList[0]), // Método do service
-    list: jest.fn().mockResolvedValue(userEntityList), // Método do service
+    index: jest.fn().mockResolvedValue(userEntityList), // Método do service
     update: jest.fn().mockResolvedValue(userEntityList[0]), // Método do service
     updatePartial: jest.fn().mockResolvedValue(userEntityList[0]), // Métodos do service
     delete: jest.fn().mockResolvedValue(true), // Método do service
