@@ -76,9 +76,13 @@ $ npm run migrate:down
 ## Run tests
 
 ```bash
-# user test
+# user service test
 $ npm test -t src/user/user.service.spec.ts
 $ npm run test:watch -t src/user/user.service.spec.ts
+
+# user controller test
+$ npm test -t src/user/user.controller.spec.ts
+$ npm run test:watch -t src/user/user.controller.spec.ts
 
 # auth test
 $ npm test -t src/auth/auth.service.spec.ts
