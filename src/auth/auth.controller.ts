@@ -8,9 +8,9 @@ import { AuthService } from "./auth.service";
 import { AuthGuard } from "../guards/auth.guard";
 import { User } from "../decorators/user.decorator";
 import { FileFieldsInterceptor, FileInterceptor, FilesInterceptor } from "@nestjs/platform-express";
-import { join } from 'path' // Isso é do Node Também
 import { UserService } from "../user/user.service";
 import { FileService } from "../file/file.service";
+import { UserEntity } from "../user/entity/user.entity";
 
 @Controller('auth') // As url da nossa rota de autenticação estará dentro desse path ('auth')
 export class AuthController {
@@ -39,8 +39,8 @@ export class AuthController {
 
   @UseGuards(AuthGuard) // Chamando e Usando o guard que criamos
   @Post('me')
-  async me(@User() user, @Req() { tokenPayload }) {
-    return { user, tokenPayload };
+  async me(@User() user: UserEntity) {
+    return user;
   }
 
   // Usando o decorator @UseInterceptors, e o FileInterceptor do Express
@@ -48,7 +48,7 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Post('file')
   async uploadFile(
-    @User() user, 
+    @User() user: UserEntity, 
     @UploadedFile(new ParseFilePipe({ validators: [ new FileTypeValidator({ fileType: 'image/png' }), new MaxFileSizeValidator({ maxSize: 1024 * 20 }) ] })) 
     file: Express.Multer.File) 
     {    
@@ -61,9 +61,8 @@ export class AuthController {
       throw new BadRequestException(e);
     }
 
-    return { success: true };
+    return file;
   }
-
 
   // Usando o decorator @UseInterceptors, e o FilesInterceptor do Express
   @UseInterceptors(FileFieldsInterceptor([{
@@ -75,9 +74,8 @@ export class AuthController {
   }]))
   @UseGuards(AuthGuard)
   @Post('files')
-  async uploadFiles(@User() user, @UploadedFiles() files: { file1: Express.Multer.File, file2: Express.Multer.File[] }) {    
+  async uploadFiles(@User() user, @UploadedFiles() files: { file1: Express.Multer.File, file2: Express.Multer.File[] }) {
 
-    
     return files;
   }
 

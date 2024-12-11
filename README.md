@@ -87,6 +87,10 @@ $ npm run test:watch -t src/user/user.controller.spec.ts
 # auth test
 $ npm test -t src/auth/auth.service.spec.ts
 $ npm run test:watch -t src/auth/auth.service.spec.ts
+
+# auth controller test
+$ npm test -t src/auth/auth.controller.spec.ts
+$ npm run test:watch -t src/auth/auth.controller.spec.ts
 ```
 
 ## Stay in touch
