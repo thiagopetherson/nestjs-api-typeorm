@@ -91,6 +91,9 @@ $ npm run test:watch -t src/auth/auth.service.spec.ts
 # auth controller test
 $ npm test -t src/auth/auth.controller.spec.ts
 $ npm run test:watch -t src/auth/auth.controller.spec.ts
+
+# e2e tests
+$ npm run test:e2e
 ```
 
 ## Stay in touch

@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv'; // Importa assim (a biblioteca dotenv) pq ela 
 import { DataSource } from 'typeorm';
 
 dotenv.config({
-    path: process.env.ENV === 'test' ? '.env.test' : '.env'
+    path: process.env.ENV === 'test' ? '.env.test' : '.env' // verifica se é ambiente de teste ou não
 });
 
 const dataSource = new DataSource({
