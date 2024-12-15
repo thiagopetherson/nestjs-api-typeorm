@@ -123,12 +123,12 @@ describe('AppController (e2e)', () => {
     const ds = await dataSource.initialize(); // Inicializa a conexão com o banco de dados.
     const queryRunner = ds.createQueryRunner();
 
-    // Atualiza o papel do usuário diretamente no banco.
+    // Atualiza o papel do usuário diretamente no banco
     await queryRunner.query(`
       UPDATE users SET role = ${Role.Admin} WHERE id = ${userId};
     `);
 
-    // Verifica se a atualização foi realizada com sucesso.
+    // Verifica se a atualização foi realizada com sucesso
     const rows = await queryRunner.query(`
       SELECT * FROM users WHERE id = ${userId};
     `);
@@ -146,7 +146,7 @@ describe('AppController (e2e)', () => {
       .set('Authorization', `bearer ${accessToken}`)
       .send();
 
-    // Confirma que a lista de usuários foi retornada.
+    // Confirma que a lista de usuários foi retornada
     expect(response.statusCode).toEqual(200);
     expect(response.body.length).toEqual(2);
   });

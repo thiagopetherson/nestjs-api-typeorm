@@ -8,7 +8,7 @@
 
 ## Introdução
 
-Este projeto tem como objetivo aprofundar o conhecimento em **NestJS**. Desenvolvido de maneira didática, ele cobre diversos conceitos essenciais, como autenticação, manipulação de dados, e segurança.
+Este projeto tem como objetivo aprofundar o conhecimento em **NestJS**. Desenvolvido de maneira didática, ele cobre diversos conceitos essenciais, como autenticação, manipulação de dados, e segurança..
 
 ## Funcionalidades
 
