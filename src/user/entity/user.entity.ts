@@ -1,26 +1,31 @@
-import { Role } from "../../enums/role.enums";
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm"
+import { Role } from '../../enums/role.enums';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 
 // Toda entidade precisa ter esse decorator (e cada campo da entidade também precisa de um decorator)
 @Entity({
   name: 'users', // Dizendo qual é o nome da tabela no banco na qual essa entidade está relacionada
-}) 
+})
 export class UserEntity {
-
   // Esse primeiro é chave primária
   @PrimaryGeneratedColumn({
-    unsigned: true
+    unsigned: true,
   })
   id?: number; // Usamos ? para dizer que é opcional
 
   @Column({
-    length: 63 // tamanho do campo
+    length: 63, // tamanho do campo
   })
   name: string;
 
   @Column({
     length: 127,
-    unique: true
+    unique: true,
   })
   email: string;
 
@@ -29,7 +34,7 @@ export class UserEntity {
 
   @Column({
     type: 'date',
-    nullable: true
+    nullable: true,
   })
   birth?: Date; // Usamos ? para dizer que é opcional
 
@@ -40,7 +45,7 @@ export class UserEntity {
   updatedAt?: Date; // Usamos ? para dizer que é opcional
 
   @Column({
-    default: Role.User
+    default: Role.User,
   })
   role: number;
 }

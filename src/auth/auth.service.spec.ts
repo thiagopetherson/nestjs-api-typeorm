@@ -11,7 +11,6 @@ import { userServiceMock } from '../testing/user/user-service.mock';
 import { AuthService } from './auth.service';
 
 describe('AuthService', () => {
-
   let authService: AuthService; // Extraindo o AuthService
 
   // Usamos o beforeEach sempre antes de cada teste
@@ -35,7 +34,6 @@ describe('AuthService', () => {
   });
 
   describe('Token', () => {
-
     // Teste de criação do token
     it('createToken method', () => {
       const result = authService.createToken(userEntityList[0]);
@@ -59,10 +57,12 @@ describe('AuthService', () => {
   });
 
   describe('Autenticação', () => {
-
     // Teste do login
     it('login method', async () => {
-      const result = await authService.login('thipetherson@gmail.com', 'Lost@4815162342');
+      const result = await authService.login(
+        'thipetherson@gmail.com',
+        'Lost@4815162342',
+      );
 
       expect(result).toEqual({ accessToken });
     });

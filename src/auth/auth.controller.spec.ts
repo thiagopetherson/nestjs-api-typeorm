@@ -61,7 +61,7 @@ describe('AuthController', () => {
     it('me method', async () => {
       const result = await authController.me(userEntityList[0]);
       expect(result).toEqual(userEntityList[0]);
-    });   
+    });
     /*
     it('uploadPhoto method', async () => {
       const photo = await getPhoto();

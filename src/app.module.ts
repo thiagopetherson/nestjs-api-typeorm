@@ -12,9 +12,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './user/entity/user.entity';
 
 @Module({
-  imports: [   
+  imports: [
     ConfigModule.forRoot({
-      envFilePath: process.env.ENV === 'test' ? '.env.test' : '.env'
+      envFilePath: process.env.ENV === 'test' ? '.env.test' : '.env',
     }),
     ThrottlerModule.forRoot({
       throttlers: [
@@ -24,16 +24,17 @@ import { UserEntity } from './user/entity/user.entity';
         },
       ],
     }),
-    forwardRef(() => UserModule), 
+    forwardRef(() => UserModule),
     forwardRef(() => AuthModule),
-    MailerModule.forRoot({ // Essa é a configuração do email 
+    MailerModule.forRoot({
+      // Essa é a configuração do email
       transport: {
         host: 'smtp.ethereal.email',
         port: 587,
         auth: {
-            user: 'jackeline.medhurst@ethereal.email',
-            pass: 'Jre6hNV6YcHjcnKbrW'
-        }
+          user: 'jackeline.medhurst@ethereal.email',
+          pass: 'Jre6hNV6YcHjcnKbrW',
+        },
       },
       defaults: {
         from: '"Thiago" <jackeline.medhurst@ethereal.email>',
@@ -43,7 +44,7 @@ import { UserEntity } from './user/entity/user.entity';
         adapter: new PugAdapter(),
         options: {
           strict: true,
-        }
+        },
       },
     }),
     TypeOrmModule.forRoot({
@@ -55,15 +56,15 @@ import { UserEntity } from './user/entity/user.entity';
       database: process.env.DB_DATABASE || 'hcode_nest',
       entities: [UserEntity],
       synchronize: process.env.ENVIRONMENT === 'development', // Temos que ter cuidado com isso, pois apaga os dados no banco (em produção, provavelmente não usaria isso)
-    })
+    }),
   ],
   controllers: [AppController],
   providers: [
-    AppService, 
+    AppService,
     {
       provide: APP_GUARD,
-      useClass: ThrottlerGuard
-    }
+      useClass: ThrottlerGuard,
+    },
   ],
 })
 export class AppModule {}

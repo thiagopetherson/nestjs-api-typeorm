@@ -1,10 +1,16 @@
-import { IsDateString, IsEmail, IsEnum, IsOptional, IsString, IsStrongPassword } from "class-validator"; // Importando as validações do class-validator
-import { Role } from "../../enums/role.enums";
+import {
+  IsDateString,
+  IsEmail,
+  IsEnum,
+  IsOptional,
+  IsString,
+  IsStrongPassword,
+} from 'class-validator'; // Importando as validações do class-validator
+import { Role } from '../../enums/role.enums';
 
 export class CreateUserDTO {
-
   // Estamos dizendo que name tem que ser string
-  @IsString() 
+  @IsString()
   name: string;
 
   // Estamos dizendo que email tem que ser um email válido
@@ -14,7 +20,7 @@ export class CreateUserDTO {
   // Estamos dizendo que password tem que ser uma string que deve ter no mínimo 6 caracteres e 1 deve ser maiúsculo e que ele deve ser forte (IsStrongPassword)
   @IsStrongPassword({
     minLength: 6,
-    minUppercase: 1
+    minUppercase: 1,
   })
   password: string;
 

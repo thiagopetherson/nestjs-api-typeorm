@@ -1,5 +1,5 @@
-import { Role } from "../../enums/role.enums";
-import { UserEntity } from "../../user/entity/user.entity";
+import { Role } from '../../enums/role.enums';
+import { UserEntity } from '../../user/entity/user.entity';
 
 // Criando um entidade (Criando uma lista para simular ter uma lista de dados no banco (como se fosse um factory do laravel))
 export const userEntityList: UserEntity[] = [
@@ -32,5 +32,5 @@ export const userEntityList: UserEntity[] = [
     role: Role.User,
     createdAt: new Date(),
     updatedAt: new Date(),
-  }
-]
+  },
+];
